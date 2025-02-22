@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useEffect } from 'react'
-import { subscribeToTaskUpdates, unsubscribeFromTaskUpdates } from '../utils/websocket'
+'use client'
 
-
-// ... (previous code)
+import React, { useState, useEffect } from 'react';
+import { subscribeToTaskUpdates } from '../utils/websocket'
 
 interface Task {
-    id: number;
-    // Add other properties your task object has
-  }
-  
-  // In your component:
+  id: number;
+  // Add other task properties
+}
+
+export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  
+
   useEffect(() => {
-    subscribeToTaskUpdates((updatedTask: Task) => {
-      setTasks((prevTasks: Task[]) =>
-        prevTasks.map((task: Task) => (task.id === updatedTask.id ? updatedTask : task))
+    const unsubscribe = subscribeToTaskUpdates((updatedTask: Task) => {
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
       );
     });
-  
+
     return () => {
-      unsubscribeFromTaskUpdates();
+      unsubscribe();
     };
   }, []);
-  
-// ... (rest of the component)
+
+  // Use tasks in your component, e.g.:
+  return (
+    <div>
+      {tasks.map(task => (
+        <div key={task.id}>{/* Render task */}</div>
+      ))}
+    </div>
+  );
+}
