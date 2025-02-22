@@ -1,11 +1,9 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/yourusername/task-management-system/ai"
 	"github.com/yourusername/task-management-system/auth"
 	"github.com/yourusername/task-management-system/db"
@@ -14,10 +12,10 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	log.Fatal("Error loading .env file")
+	//}
 
 	db.InitDB()
 
