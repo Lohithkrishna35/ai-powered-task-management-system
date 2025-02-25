@@ -7,6 +7,7 @@ COPY backend/ .
 RUN go build -o main .
 
 
-EXPOSE 8080
+ENV PORT=10000
+EXPOSE $PORT
 
 CMD ["./main"]
