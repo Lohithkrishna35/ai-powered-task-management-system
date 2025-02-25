@@ -1,0 +1,40 @@
+/* CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Global styles */
+  body {
+    font-family: Arial, sans-serif;
+    color: var(--off-white);
+    background-color: var(--dark);
+    padding: 20px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    color: var(--green);
+    font-size: var(--font-size-lg);
+  }
+  
+  p {
+    font-size: var(--font-size-md);
+    line-height: 1.5;
+  }
+  
+  /* Accessibility focus styles */
+  :focus {
+    outline: 0.15rem dashed var(--off-white);
+    outline-offset: 0.25rem;
+  }
+  
+  /* CSS variables for theming */
+  :root {
+    --off-white: #f9f9f9;
+    --dark: #333;
+    --green: #0070f3;
+    --font-size-md: 16px;
+    --font-size-lg: 24px;
+  }
+  
