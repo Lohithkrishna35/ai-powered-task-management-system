@@ -1,15 +1,14 @@
-import { io } from 'socket.io-client'
+import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:8080')
+const socket = io('http://localhost:8080');
 
 interface Task {
   id: number;
-  // Add other task properties
+  name: string;
+  description: string;
+  // Add other task properties as needed
 }
 
-export const subscribeToTaskUpdates = (callback: (task: Task) => void) => {
+export const subscribeToTaskUpdates = (callback: (taskUpdateData: Task) => void) => {
   socket.on('taskUpdate', callback);
-  return () => {
-    socket.off('taskUpdate', callback);
-  };
 };

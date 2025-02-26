@@ -1,34 +1,26 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react';
-import { subscribeToTaskUpdates } from '../utils/websocket'
-
-interface Task {
-  id: number;
-  // Add other task properties
-}
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import TaskForm from '../components/TaskForm';
+import TaskList from '../components/TaskList';
+import AIChat from '../components/AIChat';
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<{ id: number; name: string; description: string }[]>([]);
 
-  useEffect(() => {
-    const unsubscribe = subscribeToTaskUpdates((updatedTask: Task) => {
-      setTasks((prevTasks) =>
-        prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
-      );
-    });
+  const addTask = (task: { id: number; name: string; description: string }) => {
+    setTasks((prevTasks) => [...prevTasks, task]);
+  };
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  // Use tasks in your component, e.g.:
   return (
     <div>
-      {tasks.map(task => (
-        <div key={task.id}>{/* Render task */}</div>
-      ))}
+      <Header />
+      <main style={{ padding: '20px' }}>
+        <TaskForm onAddTask={addTask} />
+        <TaskList tasks={tasks} />
+        <AIChat />
+      </main>
     </div>
   );
 }
